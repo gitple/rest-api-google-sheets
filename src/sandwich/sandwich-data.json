@@ -1,0 +1,66 @@
+{
+  "sandwich": [
+    [
+      "K-바비큐",
+      "K-BBQ",
+      "https://sandwich-bot-data.s3.ap-northeast-2.amazonaws.com/sandwich_k-bbq.jpg"
+    ],
+    [
+      "얼터밋",
+      "Altermeat",
+      "https://sandwich-bot-data.s3.ap-northeast-2.amazonaws.com/sandwich_+Altermeat.jpg"
+    ],
+    [
+      "쉬림프",
+      "Shrimp",
+      "https://sandwich-bot-data.s3.ap-northeast-2.amazonaws.com/sandwich_+Shrimp.jpg"
+    ],
+    [
+      "풀드포크",
+      "Pulled Pork ",
+      "https://sandwich-bot-data.s3.ap-northeast-2.amazonaws.com/sandwich_Pulled-Pork.jpg"
+    ],
+    [
+      "터키 베이컨 아보카도",
+      "Turkey Bacon Avocado",
+      "https://sandwich-bot-data.s3.ap-northeast-2.amazonaws.com/sandwich_Turkey-Bacon-Avocado.jpg"
+    ],
+    [
+      "써브웨이 멜트",
+      "Subway Melt",
+      "https://sandwich-bot-data.s3.ap-northeast-2.amazonaws.com/sandwich_Subway-Melt.jpg"
+    ]
+  ],
+  "salad": [
+    [
+      "K-바비큐",
+      "K-BBQ ",
+      "https://sandwich-bot-data.s3.ap-northeast-2.amazonaws.com/salad_k-bbq.jpg"
+    ],
+    [
+      "얼터밋",
+      "Altermeat",
+      "https://sandwich-bot-data.s3.ap-northeast-2.amazonaws.com/salad_+Altermeat.jpg"
+    ],
+    [
+      "쉬림프",
+      "Shrimp",
+      "https://sandwich-bot-data.s3.ap-northeast-2.amazonaws.com/salad_+Shrimp.jpg"
+    ],
+    [
+      "풀드포크",
+      "Pulled Pork",
+      "https://sandwich-bot-data.s3.ap-northeast-2.amazonaws.com/salad_Pulled-Pork.jpg"
+    ],
+    [
+      "스테이크 & 치즈",
+      "Steak & Cheese",
+      "https://sandwich-bot-data.s3.ap-northeast-2.amazonaws.com/salad_Steak-Cheese.jpg"
+    ],
+    [
+      "터키 베이컨 아보카도",
+      "Turkey Bacon Avocado",
+      "https://sandwich-bot-data.s3.ap-northeast-2.amazonaws.com/salad_Turkey-Bacon-Avocado.jpg"
+    ]
+  ]
+}
