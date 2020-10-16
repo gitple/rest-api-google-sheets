@@ -1,11 +1,19 @@
 #!/bin/bash
 # deploy.sh
-# Deploy the image
+# Deploy to google cloud run
 
-# Replace this with your Google Project ID
-GOOGLE_PROJECT_ID=operating-realm-291905
-# Replace this with your desired container image name
-CONTAINER_IMAGE_NAME=node-sandwich-bot-rest-api
+# get project id
+GCP_PROJECT=$(gcloud config list --format 'value(core.project)' 2>/dev/null)
 
-gcloud run deploy --image gcr.io/$GOOGLE_PROJECT_ID/$CONTAINER_IMAGE_NAME \
-  --platform managed
+# build image
+gcloud builds submit \
+--tag gcr.io/$GCP_PROJECT/sheets-on-run
+
+# set default region : seoul
+gcloud config set run/region asia-northeast3
+
+# deploy image
+gcloud run deploy sheets-on-run \
+--image gcr.io/$GCP_PROJECT/sheets-on-run \
+--platform managed \
+--allow-unauthenticated

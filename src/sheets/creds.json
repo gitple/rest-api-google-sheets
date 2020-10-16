@@ -1,0 +1,12 @@
+{
+  "type": "service_account",
+  "project_id": "fluent-protocol-292605",
+  "private_key_id": "3438445403b6c4b303de7dcaaada55840791553e",
+  "private_key": "-----BEGIN PRIVATE KEY-----\nMIIEvgIBADANBgkqhkiG9w0BAQEFAASCBKgwggSkAgEAAoIBAQDaxMk4ySBqq7Z9\n57xBHEOAsYHWHln8XLgQNZhy6yQPu4ggkpzNuoh+fbOnysuMYsyeYBkhBDkWHl7M\n11gN9Lb5nujThcDpyVeG5GxQCbH2ihRS8YJqKAESAGnLNMkj90xKRiXKePFElsIF\n3cxcRgqwdgL5vRXBo5BEOJG09eK8TYq4UlChO4mL89nSuvEHN5lOVVqRAlFNfpZN\nOGgYDabki+VYjUP6SgKpJ4PCJ2SAjhiCK6dx5vcMtoqJGfOtWGpZpBXmVVH5qSNg\nmlQ8f9sGkc3ciyRYyc+pnrhxt4OswEPZ9HiE9tb03VyMRS2wTJLPIjIPwehqXn91\nt++E0LcZAgMBAAECggEAIYkLeIk6TyfJ5oSEwu1geqSbTNWjwS/8Zj21BB7ADSpX\n7HhVEaNfw5Yk2VqYt8k4aSm9iGZjktyudxOms6L4/oxpz+z/vMbIxEyVPvKxhWO2\nyF0tuvStb1NBZG1PzRPebb9RkTdXcsZycSBGMLnq7xB0FdDyuheG6LJMQbN0oZ0v\n0DoV+t9vz32b+BaRCpfk59DADG3Olc9CxDD/7p/h03h8EI6hutoOt3q7Y3H25TvL\nM3rNy0cJ1vxq3XNFb9oHeT72A2fiuGUJ1FDl+x8IsmRVVDdePZiDVTWGjQvpECfB\nsV+QuQ/pRmIQQUN/8pw2nudkIHGgJ2pv03ynROz3FQKBgQDvx4rGrqMO9a8yP9R5\nweq+kh/YiqIckK85AVrExnP8bj1Lp8vt7D7alF1IfXXRgzEnYCX4jwQlwBSy3F8y\nfgy+wo3eO+aC7lHASRbQ0ogAPBst0R+qf9736hT8kEeefImP4xCgWWX12PzYtvES\nQSfKVk7lwoLak3CR8SQQvzrNDQKBgQDpkWIbuCRGjeY7RQnlQQITvWIzYEYs9mdR\no7Vsiq26WqAhK+yuKom8xMIbKARqERM2BFQ5kh5FU0bHiqGEdssArKcYj9NgkNEN\nX6XbDyzHgld+PCL8mn+t7sXVUpxTs+Wy+UJ4S/aLZGc/kI74zrd7+ltxJzOPIon7\nDQQTBVyHPQKBgQCAg9zXvIZc4EW0kw2Y7Nyao8s5zqQw10NzNEyoJw3HgHaN9DOT\nJApUMS0GS2g4kS5pQllXrZ+1dAwkCYVklLbUD4bmVAiqqH1cqE/4QL7wEUcn+WwV\ngE/LZMU20UXxpiI84qDosMG7UT/ED9mJxS5Efpnu/6AO8vNk5XBFIZmsiQKBgQCZ\n6/JAnDBjwp2oD44+44Fv6s1tWBPHC7b46S7lUdq9RX3jfmPiPyw4F15nsQ5/q7MC\nVQYATpfeTcwGMgjRF8weLKmNmTLOn4D1FERjwXNcIzxvd0gDOfnMcN80/tUAoDxO\nns88IatfHxKfpC9kLi5i6JEcV541xKgzptc5hb39bQKBgAc0ImdNoi5HSKzqEVTt\nMUswxgvgVj7kM7TCZgIhG86FtK28UetAxX1dA/EosKDeOkLx1mi+tsLQzttOPpM3\naghu2bxhKUgtyWJycXwA9zpg4yqAVcoWy4vN5CegumPQEDl1IaK8SICUz5ULqtbh\n9hc6W8xhawK1+9XvjqY/6kxH\n-----END PRIVATE KEY-----\n",
+  "client_email": "sa-name@fluent-protocol-292605.iam.gserviceaccount.com",
+  "client_id": "113618908358258791906",
+  "auth_uri": "https://accounts.google.com/o/oauth2/auth",
+  "token_uri": "https://oauth2.googleapis.com/token",
+  "auth_provider_x509_cert_url": "https://www.googleapis.com/oauth2/v1/certs",
+  "client_x509_cert_url": "https://www.googleapis.com/robot/v1/metadata/x509/sa-name%40fluent-protocol-292605.iam.gserviceaccount.com"
+}
