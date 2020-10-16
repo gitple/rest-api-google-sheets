@@ -84,6 +84,7 @@ npm run dev
 - Google Cloud project: rest-api-google-sheets (Gitple Account)
 - URL : https://sheets-on-run-fywh4w3uiq-du.a.run.app (Cloud Run)
 - Shared Account: `sa-name@fluent-protocol-292605.iam.gserviceaccount.com`
+  <img src="./docs/images/share-google-sheets.png">
 - APIs
 
   * **`header`**
@@ -174,5 +175,5 @@ npm run dev
     - google sheets
 
     | | | | |
-    |---|:---|:---|:---|:---|
+    |---|:---|:---|:---|
     | key1 | value1 | key2 | value2 |
