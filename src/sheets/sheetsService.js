@@ -88,7 +88,7 @@ exports.getData = async (key, value, sheetId, tabId) => {
   const rows = await retrieveFromSheet(sheetId, tabId, SHEETS_RANGE.data);
 
   if (keys && keys[0]) {
-    const keyIndex = _.findIndex(keys[0]);
+    const keyIndex = _.indexOf(keys[0], key);
 
     let matchedRow;
     _.forEach(rows, (row) => {
