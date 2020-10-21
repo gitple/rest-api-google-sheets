@@ -84,21 +84,31 @@ exports.getListSelects = async (sheetId, tabId) => {
 }
 
 exports.getData = async (key, value, sheetId, tabId) => {
+  // param ex) key=email,done&value=ys@xx.com|jy@xx.com,yes
+  
   const keys = await retrieveFromSheet(sheetId, tabId, SHEETS_RANGE.keys);
   const rows = await retrieveFromSheet(sheetId, tabId, SHEETS_RANGE.data);
 
+  const keysParam = _.split(key, ',');
+  const valuesParam = _.split(value, ',');
+
   if (keys && keys[0]) {
-    const keyIndex = _.indexOf(keys[0], key);
+    const keyIndexList = _.reduce(keysParam, (r, v) => { 
+      r.push(_.indexOf(keys[0], v)); 
+      return r; 
+    }, []);
 
     let matchedRow;
     _.forEach(rows, (row) => {
-      if (row[keyIndex] === value) {
-        matchedRow = _.reduce(keys[0], (result, key, index) => {
-          result[key] = row[index];
-          return result;
-        }, {});
-        return false;
-      }
+      if (!key // 1st row on missing a key param
+        || _.every(keyIndexList,  // AND: comma separated keys and values, OR: '|' separated ones for a value
+          (v, k) => _.some(_.split(valuesParam[k], '|'), (sv) => row[v] == sv))) {
+            matchedRow = _.reduce(keys[0], (result, key, index) => {
+              result[key] = row[index];
+              return result;
+            }, {});
+            return false;
+          }
     });
 
     console.debug(`[getData] sheet id: ${sheetId}, tab id: ${tabId}`);
