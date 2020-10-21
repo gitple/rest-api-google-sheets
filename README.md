@@ -78,11 +78,17 @@
     | key1 | value1 |
     | key2 | value2 |
 
+    | key1 | key2 | ... | keyN |
+    |---|:---|:---|:---|
+    | row1_value1 | row1_value2 | ... | row1_valueN |
+    | row2_value1 | row_value2 | ... | row2_valueN |
+
     - reponse
     ```json
     {
-      "key1": "value1",
-      "key2": "value2",
+      "key1": "a_row_value1",
+      "key2": "a_row_value2",
+      ...
     }
     ``` 
 
