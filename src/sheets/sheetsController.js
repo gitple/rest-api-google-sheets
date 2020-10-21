@@ -11,9 +11,14 @@ const sheetInfo = (req) => {
 exports.getCardSelects = async (req, res) => {
   try {
     const result = await sheetsService.getCardSelects(...sheetInfo(req));
-    return res.json({
-      templateType: "basicCard",
-      data: result
+    if (result) {
+      return res.json({
+        templateType: "basicCard",
+        data: result
+      });
+    }
+    return res.status(404).json({
+      errors: 'not found'
     });
   } catch (err) {
     console.error('[sheetsController/getSelects] error:', err);
@@ -26,9 +31,14 @@ exports.getCardSelects = async (req, res) => {
 exports.getListSelects = async (req, res) => {
   try {
     const result = await sheetsService.getListSelects(...sheetInfo(req));
-    return res.json({
-      templateType: "list",
-      data: result
+    if (result) {
+      return res.json({
+        templateType: "list",
+        data: result
+      });
+    }
+    return res.status(404).json({
+      errors: 'not found'
     });
   } catch (err) {
     console.error('[sheetsController/getSelects] error:', err);
@@ -40,8 +50,13 @@ exports.getListSelects = async (req, res) => {
 
 exports.getData = async (req, res) => {
   try {
-    const result = await sheetsService.getData(...sheetInfo(req));
-    return res.json(result);
+    const key =  req.query.key;
+    const value = req.query.value;
+    const result = await sheetsService.getData(key, value, ...sheetInfo(req));
+    if (result) {
+      return res.json(result);
+    }
+    return res.status(404).json({errors: 'not found'})
   } catch (err) {
     console.error('[sheetsController/getData] error:', err);
     return res.status(500).json({
@@ -53,7 +68,12 @@ exports.getData = async (req, res) => {
 exports.setData = async (req, res) => {
   try {
     const result = await sheetsService.setData(req.body, ...sheetInfo(req));
-    return res.status(201).json(result);
+    if (result) {
+      return res.status(201).json(result);
+    }
+    return  res.status(400).json({
+      errors: 'bad request'
+    });
   } catch (err) {
     console.error('[sheetsController/setData] error:', err);
     return res.status(500).json({

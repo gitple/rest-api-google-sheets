@@ -5,7 +5,8 @@ const _ = require('lodash');
 const SHEETS_RANGE = {
   'listSelect': 'A2:B',
   'cardSelect': 'A2:C',
-  'data': 'A2:B'
+  'data': 'A2:Z',
+  'keys':  'A1:Z1'
 }
 
 const retrieveFromSheet = async (sheetId, tabId, range) => {
@@ -82,29 +83,46 @@ exports.getListSelects = async (sheetId, tabId) => {
   return rows ? rows.map((row) => formatListRow(row)) : [];
 }
 
-exports.getData = async (sheetId, tabId) => {
+exports.getData = async (key, value, sheetId, tabId) => {
+  const keys = await retrieveFromSheet(sheetId, tabId, SHEETS_RANGE.keys);
   const rows = await retrieveFromSheet(sheetId, tabId, SHEETS_RANGE.data);
-  return rows ? _.reduce(rows, (result, row) => {
-    if (row[0], row[1]) {
-      result[row[0]] = row[1];
-    }
-    return result;
-  }, {}) : {};
+
+  if (keys && keys[0]) {
+    const keyIndex = _.findIndex(keys[0]);
+
+    let matchedRow;
+    _.forEach(rows, (row) => {
+      if (row[keyIndex] === value) {
+        matchedRow = _.reduce(keys[0], (result, key, index) => {
+          result[key] = row[index];
+          return result;
+        }, {});
+        return false;
+      }
+    });
+
+    console.debug(`[getData] sheet id: ${sheetId}, tab id: ${tabId}`);
+    console.debug('data: ', matchedRow);
+
+    return matchedRow;
+  }
+
+  return null;
 }
 
 exports.setData = async (body, sheetId, tabId) => {
-  // NOTe: body is json data: { key1: value1, key2: value2 }
-  // change to [key1, value1, key2, value2]
-  let row = [];
-  _.forOwn(body, (value, key) => {
-    row.push(key);
-    try {
-      row.push(JSON.stringify(value));
-    } catch (error) {
-      console.warn('[setData] value JSON.stringify failed. value:', value);
-      row.push('parsing error');
-    }
-  });
-  return await appendToSheet(row, sheetId, tabId)
+  // get title keys
+  const keys = await retrieveFromSheet(sheetId, tabId, SHEETS_RANGE.keys);
+
+  if (keys && keys[0]) {
+    const row = _.reduce(keys[0], (result, key) => {
+      if (body[key]) {
+        result.push(body[key]);
+      }
+      return result;
+    }, []);
+    return await appendToSheet(row, sheetId, tabId);
+  }
+  return null;
 }
 
