@@ -7,9 +7,13 @@
   <img src="./docs/images/share-google-sheets.png">
 - APIs
 
-  * **`header`**
+  * **`Params`**
     - sheet: google sheets ID
     - tab: google sheetss Tab Name
+    - example
+    ```
+      https://sheets-on-run-fywh4w3uiq-du.a.run.app/cards?sheet=googlesheetsid&tab=tabname
+    ```
 
   * **`GET` https://sheets-on-run-fywh4w3uiq-du.a.run.app/cards**
   

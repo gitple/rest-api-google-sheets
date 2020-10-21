@@ -1,8 +1,8 @@
 const sheetsService = require('./sheetsService');
 
 const sheetInfo = (req) => {
-  const sheetId = req.get('sheet');
-  const tabId = req.get('tab');
+  const sheetId = req.query.sheet;
+  const tabId = req.query.tab;
 
   console.debug(`[sheetsController/sheetInfo] sheets id: ${sheetId}, tab id: ${tabId}`);
   return [sheetId, tabId];

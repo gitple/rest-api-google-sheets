@@ -3,9 +3,9 @@ const { google } = require('googleapis');
 const _ = require('lodash');
 
 const SHEETS_RANGE = {
-  'listSelect': 'A:B',
-  'cardSelect': 'A:C',
-  'data': 'A:B'
+  'listSelect': 'A2:B',
+  'cardSelect': 'A2:C',
+  'data': 'A2:B'
 }
 
 const retrieveFromSheet = async (sheetId, tabId, range) => {
