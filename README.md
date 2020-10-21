@@ -71,6 +71,13 @@
 
   * **`GET` https://sheets-on-run-fywh4w3uiq-du.a.run.app/data**
 
+    - params
+       - key: [optional] comma separated keys
+       - value: [optional] comma separated values(AND operation), a value can be '|' separated(OR operation).
+
+    - example: (email == 'ys@x.com' OR 'jy@x.com') AND (avail == 'yes')
+       - https://sheets-on-run-fywh4w3uiq-du.a.run.app/data?sheet=googlesheetsid&tab=tabname&key=email,avail&value=ys@x.com|jy@x.com,yes
+
     - google sheets
 
     | key | value |
