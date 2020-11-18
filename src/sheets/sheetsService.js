@@ -91,6 +91,7 @@ exports.getData = async (key, value, sheetId, tabId) => {
 
   const keysParam = _.split(key, ',');
   const valuesParam = _.split(value, ',');
+  const opsParam = _.split(value, ',');
 
   if (keys && keys[0]) {
     const keyIndexList = _.reduce(keysParam, (r, v) => { 
@@ -102,7 +103,18 @@ exports.getData = async (key, value, sheetId, tabId) => {
     _.forEach(rows, (row) => {
       if (!key // 1st row on missing a key param
         || _.every(keyIndexList,  // AND: comma separated keys and values, OR: '|' separated ones for a value
-          (v, k) => _.some(_.split(valuesParam[k], '|'), (sv) => row[v] == sv))) {
+          (v, k) => _.some(_.split(valuesParam[k], '|'), (sv) => { 
+            let rtn = false;
+            switch(opsParam[k]) {
+              case 'gt': { rtn = (Number(row[v]) > Number(sv)); break; }
+              case 'gte': { rtn = (Number(row[v]) >= Number(sv)); break; }
+              case 'lt': { rtn = (Number(row[v]) < Number(sv)); break; }
+              case 'lte': { rtn = (Number(row[v]) <= Number(sv)); break; }
+              default: { rtn = (Number(row[v]) == Number(sv)); break;
+              }
+            }
+            return rtn;
+          }))) {
             matchedRow = _.reduce(keys[0], (result, key, index) => {
               result[key] = row[index];
               return result;

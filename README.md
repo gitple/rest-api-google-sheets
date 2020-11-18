@@ -75,9 +75,12 @@
     - params
        - key: [optional] comma separated keys
        - value: [optional] comma separated values(AND operation), a value can be '|' separated(OR operation).
+       - op: [optional] comma separated operations such as `gt`, `gte`, `lt`, `lte` and `eq`
+          - `eq`: default if missing
+          - `gt`, `gte`, `lt` and `lte`: `Number` conversion to the given value
 
-    - example: get a row matching (email == 'ys@x.com' OR 'jy@x.com') AND (avail == 'yes')
-       - https://sheets-on-run-fywh4w3uiq-du.a.run.app/data?sheet=googlesheetsid&tab=tabname&key=email,avail&value=ys@x.com|jy@x.com,yes
+    - example: get a row matching (email == `ys@x.com` OR `jy@x.com`) AND (avail < 1)
+       - https://your_app.run.app/data?sheet=googlesheetsid&tab=tabname&key=email,avail&value=ys@x.com|jy@x.com,1&op=eq,lt
 
     - google sheets
 
