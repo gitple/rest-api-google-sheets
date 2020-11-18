@@ -93,7 +93,6 @@
     ```json
     {
       "key1": "a_row_value1",
-      ...
     }
     ``` 
 
