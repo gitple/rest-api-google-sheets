@@ -1,12 +1,14 @@
 const path = require('path');
-const { google } = require('googleapis');
+const {
+  google
+} = require('googleapis');
 const _ = require('lodash');
 
 const SHEETS_RANGE = {
   'listSelect': 'A2:B',
   'cardSelect': 'A2:C',
   'data': 'A2:Z',
-  'keys':  'A1:Z1'
+  'keys': 'A1:Z1'
 }
 
 const retrieveFromSheet = async (sheetId, tabId, range) => {
@@ -25,7 +27,7 @@ const retrieveFromSheet = async (sheetId, tabId, range) => {
 
   console.debug(`[retrieveFromSheet] sheet id: ${sheetId}, tab id: ${tabId}, range: ${range} `);
   console.debug(response.data)
-  
+
   return response.data.values;
 }
 
@@ -83,44 +85,60 @@ exports.getListSelects = async (sheetId, tabId) => {
   return rows ? rows.map((row) => formatListRow(row)) : [];
 }
 
-exports.getData = async (key, value, sheetId, tabId) => {
+exports.getData = async (key, value, operations, sheetId, tabId) => {
   // param ex) key=email,done&value=ys@xx.com|jy@xx.com,yes
-  
+
   const keys = await retrieveFromSheet(sheetId, tabId, SHEETS_RANGE.keys);
   const rows = await retrieveFromSheet(sheetId, tabId, SHEETS_RANGE.data);
 
   const keysParam = _.split(key, ',');
   const valuesParam = _.split(value, ',');
-  const opsParam = _.split(value, ',');
+  const opsParam = _.split(operations, ',');
 
   if (keys && keys[0]) {
-    const keyIndexList = _.reduce(keysParam, (r, v) => { 
-      r.push(_.indexOf(keys[0], v)); 
-      return r; 
+    const keyIndexList = _.reduce(keysParam, (r, v) => {
+      r.push(_.indexOf(keys[0], v));
+      return r;
     }, []);
 
     let matchedRow;
     _.forEach(rows, (row) => {
       if (!key // 1st row on missing a key param
-        || _.every(keyIndexList,  // AND: comma separated keys and values, OR: '|' separated ones for a value
-          (v, k) => _.some(_.split(valuesParam[k], '|'), (sv) => { 
+        ||
+        _.every(keyIndexList, // AND: comma separated keys and values, OR: '|' separated ones for a value
+          (v, k) => _.some(_.split(valuesParam[k], '|'), (sv) => {
             let rtn = false;
-            switch(opsParam[k]) {
-              case 'gt': { rtn = (Number(row[v]) > Number(sv)); break; }
-              case 'gte': { rtn = (Number(row[v]) >= Number(sv)); break; }
-              case 'lt': { rtn = (Number(row[v]) < Number(sv)); break; }
-              case 'lte': { rtn = (Number(row[v]) <= Number(sv)); break; }
-              default: { rtn = (Number(row[v]) == Number(sv)); break;
+
+            switch (opsParam[k]) {
+              case 'gt': {
+                rtn = (Number(row[v]) > Number(sv));
+                break;
+              }
+              case 'gte': {
+                rtn = (Number(row[v]) >= Number(sv));
+                break;
+              }
+              case 'lt': {
+                rtn = (Number(row[v]) < Number(sv));
+                break;
+              }
+              case 'lte': {
+                rtn = (Number(row[v]) <= Number(sv));
+                break;
+              }
+              default: {
+                rtn = (Number(row[v]) == Number(sv));
+                break;
               }
             }
             return rtn;
           }))) {
-            matchedRow = _.reduce(keys[0], (result, key, index) => {
-              result[key] = row[index];
-              return result;
-            }, {});
-            return false;
-          }
+        matchedRow = _.reduce(keys[0], (result, key, index) => {
+          result[key] = row[index];
+          return result;
+        }, {});
+        return false;
+      }
     });
 
     console.debug(`[getData] sheet id: ${sheetId}, tab id: ${tabId}`);
@@ -147,4 +165,3 @@ exports.setData = async (body, sheetId, tabId) => {
   }
   return null;
 }
-

@@ -52,7 +52,8 @@ exports.getData = async (req, res) => {
   try {
     const key =  req.query.key;
     const value = req.query.value;
-    const result = await sheetsService.getData(key, value, ...sheetInfo(req));
+    const operations = req.query.op;
+    const result = await sheetsService.getData(key, value, operations, ...sheetInfo(req));
     if (result) {
       return res.json(result);
     }
