@@ -127,7 +127,7 @@ exports.getData = async (key, value, operations, sheetId, tabId) => {
                 break;
               }
               default: {
-                rtn = (Number(row[v]) == Number(sv));
+                rtn = (row[v] == sv);
                 break;
               }
             }
