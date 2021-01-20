@@ -1,0 +1,55 @@
+@devHost = http://localhost:8080
+@prodHost = 
+@host = {{devHost}}
+@sheet=1uIV7rfb3TX_bxmDaAonb-8xaDX0NrWKw8S4b-V96MR4
+@tab=시트1
+
+### get root path
+GET {{host}}/ HTTP/1.1
+
+
+### get sheet row
+GET {{host}}/data
+  ?sheet={{sheet}}
+  &tab={{tab}}
+  &key=key
+  &value=test
+
+### get sheet row with id
+GET {{host}}/data/4
+  ?sheet={{sheet}}
+  &tab={{tab}}
+
+### put sheet row with id
+PUT {{host}}/data/1
+  ?sheet={{sheet}}
+  &tab={{tab}}
+
+{
+  "key": "test",
+  "column2": "=SUM(2:2)"
+}
+
+### put sheet row with key, value
+PUT {{host}}/data
+  ?sheet={{sheet}}
+  &tab={{tab}}
+  &key=key
+  &value=testrow2
+
+{
+  "key": "test",
+  "column2": "=SUM(2:2)"
+}
+
+### post sheet row
+POST {{host}}/data
+  ?sheet={{sheet}}
+  &tab={{tab}}
+content-type: application/json
+
+{
+  "key": "test",
+  "column1": "column1",
+  "column4": "column3"
+}
