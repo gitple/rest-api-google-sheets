@@ -48,7 +48,7 @@ exports.getListSelects = async (req, res) => {
   }
 };
 
-exports.getData = async (req, res) => {
+exports.getDataByKey = async (req, res) => {
   try {
     const key =  req.query.key;
     const value = req.query.value;
@@ -66,9 +66,37 @@ exports.getData = async (req, res) => {
   }
 };
 
-exports.setData = async (req, res) => {
+exports.getDataById = async (req, res) => {
   try {
-    const result = await sheetsService.setData(req.body, ...sheetInfo(req));
+    const id =  req.params.id;
+    console.info('[sheetsController/getDataById] request id:', id);
+
+    const result = await sheetsService.getDataById(id, ...sheetInfo(req));
+    if (result) {
+      return res.json(result);
+    }
+    return res.status(404).json({errors: 'not found'})
+  } catch (err) {
+    console.error('[sheetsController/getDataById] error:', err);
+    return res.status(500).json({
+      errors: err
+    });
+  }
+}
+
+exports.putDataById = async (req, res) => {
+  // TODO: add put by id
+  return res.status(200).json({test: 'test'});
+}
+
+exports.putDataByKey = async (req, res) => {
+  // TODO: add put by key
+  return res.status(200).json({test: 'test'});
+}
+
+exports.postData = async (req, res) => {
+  try {
+    const result = await sheetsService.postData(req.body, ...sheetInfo(req));
     if (result) {
       return res.status(201).json(result);
     }

@@ -8,8 +8,10 @@ const SHEETS_RANGE = {
   'listSelect': 'A2:B',
   'cardSelect': 'A2:C',
   'data': 'A2:Z',
-  'keys': 'A1:Z1'
+  'keys': '1:1'
 }
+
+const SHEET_ROW_ID = '_id';
 
 const retrieveFromSheet = async (sheetId, tabId, range) => {
   const auth = await google.auth.getClient({
@@ -49,6 +51,7 @@ const appendToSheet = async (row, sheetId, tabId) => {
     spreadsheetId: sheetId,
     range: tabId, // 'A1:A1', // Needed, but not used when values are present.
     valueInputOption: 'USER_ENTERED',
+    includeValuesInResponse: true,
     requestBody: {
       values: [
         row, // Example: ['Grant', '1/1/2000'],
@@ -60,6 +63,13 @@ const appendToSheet = async (row, sheetId, tabId) => {
   console.debug(response.data);
   return response.data;
 }
+
+/**
+ * 
+ * @param {*} sheetId 
+ * @param {*} tabId 
+ */
+// const updateToSheet = async()
 
 
 exports.getCardSelects = async (sheetId, tabId) => {
@@ -102,7 +112,7 @@ exports.getData = async (key, value, operations, sheetId, tabId) => {
     }, []);
 
     let matchedRow;
-    _.forEach(rows, (row) => {
+    _.forEach(rows, (row, rowIndex) => {
       if (!key // 1st row on missing a key param
         ||
         _.every(keyIndexList, // AND: comma separated keys and values, OR: '|' separated ones for a value
@@ -137,6 +147,10 @@ exports.getData = async (key, value, operations, sheetId, tabId) => {
           result[key] = row[index];
           return result;
         }, {});
+
+        // add google sheet row ID
+        matchedRow[SHEET_ROW_ID] = rowIndex + 2;
+
         return false;
       }
     });
@@ -150,7 +164,27 @@ exports.getData = async (key, value, operations, sheetId, tabId) => {
   return null;
 }
 
-exports.setData = async (body, sheetId, tabId) => {
+exports.getDataById = async (id, sheetId, tabId) => {
+
+  const keys = await retrieveFromSheet(sheetId, tabId, SHEETS_RANGE.keys);  
+  const rows = await retrieveFromSheet(sheetId, tabId, `${id}:${id}`);
+
+  if (keys && keys[0] && rows && rows[0]) {
+    const row = rows[0];
+    const result = _.reduce(keys[0], (result, key, index) => {
+      if (key && !_.isNil(row[index])) {
+        result[key] = row[index];
+      }
+      return result;
+    }, {});
+    result[SHEET_ROW_ID] = id;
+    return result;
+  }
+
+  return null;
+}
+
+exports.postData = async (body, sheetId, tabId) => {
   // get title keys
   const keys = await retrieveFromSheet(sheetId, tabId, SHEETS_RANGE.keys);
 
@@ -158,10 +192,16 @@ exports.setData = async (body, sheetId, tabId) => {
     const row = _.reduce(keys[0], (result, key) => {
       if (body[key]) {
         result.push(body[key]);
+      } else  {
+        result.push(null);
       }
       return result;
     }, []);
-    return await appendToSheet(row, sheetId, tabId);
+    const result = await appendToSheet(row, sheetId, tabId);
+
+    // TODO: add row id
+
+    return result;
   }
   return null;
 }
