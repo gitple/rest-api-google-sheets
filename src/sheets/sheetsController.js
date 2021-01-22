@@ -1,3 +1,4 @@
+const { options } = require('../router');
 const sheetsService = require('./sheetsService');
 
 const sheetInfo = (req) => {
@@ -50,16 +51,25 @@ exports.getListSelects = async (req, res) => {
 
 exports.getDataByKey = async (req, res) => {
   try {
+    const rowId = req.query.row;
     const key =  req.query.key;
     const value = req.query.value;
     const operations = req.query.op;
-    const result = await sheetsService.getData(key, value, operations, ...sheetInfo(req));
+    console.info('[sheetsController/getDataByKey] request key, value, operations:', key, value, operations);
+
+    let result;
+    if (rowId) {
+      result = await sheetsService.getByRow(rowId, ...sheetInfo(req));
+    } else {
+      result = await sheetsService.getByKey(key, value, operations, ...sheetInfo(req));
+    }
+
     if (result) {
       return res.json(result);
     }
     return res.status(404).json({errors: 'not found'})
   } catch (err) {
-    console.error('[sheetsController/getData] error:', err);
+    console.error('[sheetsController/getDataByKey] error:', err);
     return res.status(500).json({
       errors: err
     });
@@ -68,10 +78,10 @@ exports.getDataByKey = async (req, res) => {
 
 exports.getDataById = async (req, res) => {
   try {
-    const id =  req.params.id;
-    console.info('[sheetsController/getDataById] request id:', id);
+    const rowId =  req.params.id;
+    console.info('[sheetsController/getDataById] request id:', rowId);
 
-    const result = await sheetsService.getDataById(id, ...sheetInfo(req));
+    const result = await sheetsService.getByRow(rowId, ...sheetInfo(req));
     if (result) {
       return res.json(result);
     }
@@ -84,19 +94,54 @@ exports.getDataById = async (req, res) => {
   }
 }
 
-exports.putDataById = async (req, res) => {
-  // TODO: add put by id
-  return res.status(200).json({test: 'test'});
+exports.putDataByKey = async (req, res) => {
+  try {
+    const rowId = req.query.row;
+    const key =  req.query.key;
+    const value = req.query.value;
+    const operations = req.query.op;
+    console.info('[sheetsController/putDataByKey] request key, value, operations:', key, value, operations);
+
+    let result;
+    if (rowId) {
+      result = await sheetsService.putByRow(rowId, req.body, ...sheetInfo(req));
+    } else {
+      result = await sheetsService.putByKey(key, value, operations, req.body, ...sheetInfo(req));
+    }
+
+    if (result) {
+      return res.json(result);
+    }
+    return res.status(404).json({errors: 'not found'})
+  } catch (err) {
+    console.error('[sheetsController/putDataByKey] error:', err);
+    return res.status(500).json({
+      errors: err
+    });
+  }
 }
 
-exports.putDataByKey = async (req, res) => {
-  // TODO: add put by key
-  return res.status(200).json({test: 'test'});
+exports.putDataById = async (req, res) => {
+  try {
+    const id =  req.params.id;
+    console.info('[sheetsController/putDataById] request id:', id, req.bod);
+
+    const result = await sheetsService.putByRow(id, req.body, ...sheetInfo(req));
+    if (result) {
+      return res.json(result);
+    }
+    return res.status(404).json({errors: 'not found'})
+  } catch (err) {
+    console.error('[sheetsController/putDataById] error:', err);
+    return res.status(500).json({
+      errors: err
+    });
+  }
 }
 
 exports.postData = async (req, res) => {
   try {
-    const result = await sheetsService.postData(req.body, ...sheetInfo(req));
+    const result = await sheetsService.post(req.body, ...sheetInfo(req));
     if (result) {
       return res.status(201).json(result);
     }
