@@ -1,6 +1,7 @@
 @devHost = http://localhost:8080
-@prodHost = 
+@prodHost = https://sheets-on-run-fywh4w3uiq-du.a.run.app
 @host = {{devHost}}
+# @host = {{prodHost}}
 @sheet=1uIV7rfb3TX_bxmDaAonb-8xaDX0NrWKw8S4b-V96MR4
 @tab=시트1
 
@@ -12,22 +13,24 @@ GET {{host}}/ HTTP/1.1
 GET {{host}}/data
   ?sheet={{sheet}}
   &tab={{tab}}
-  &key=key
-  &value=test
+  &key=column4
+  &value=column3
 
 ### get sheet row with id
-GET {{host}}/data/4
+GET {{host}}/data
   ?sheet={{sheet}}
   &tab={{tab}}
+  &row=10
 
 ### put sheet row with id
-PUT {{host}}/data/1
+PUT {{host}}/data
   ?sheet={{sheet}}
   &tab={{tab}}
+  &row=5
+content-type: application/json
 
 {
-  "key": "test",
-  "column2": "=SUM(2:2)"
+  "column5": "zzz111"
 }
 
 ### put sheet row with key, value
@@ -35,11 +38,11 @@ PUT {{host}}/data
   ?sheet={{sheet}}
   &tab={{tab}}
   &key=key
-  &value=testrow2
+  &value=test
+content-type: application/json
 
 {
-  "key": "test",
-  "column2": "=SUM(2:2)"
+  "column2": "3333"
 }
 
 ### post sheet row
@@ -50,6 +53,6 @@ content-type: application/json
 
 {
   "key": "test",
-  "column1": "column1",
-  "column4": "column3"
+  "column2": "columnddd1",
+  "column5": "columndddddssfs3"
 }
