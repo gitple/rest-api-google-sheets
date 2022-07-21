@@ -4,7 +4,7 @@
 
 ### 1. 문서에서 스크립트 편집기 열기
 - 문서에서 스크립트 편집기 열기
-<img width="926" alt="스크린샷 2021-01-26 오전 10 53 58" src="https://user-images.githubusercontent.com/995776/105800802-f2720500-5fda-11eb-9713-cc0c0b42ec38.png">
+<img width="982" alt="스크린샷 2022-07-21 오전 11 08 50" src="https://user-images.githubusercontent.com/995533/180114455-20de92b9-605e-4fe9-8ebd-7dfd5f1ec90b.png">
 
 - 스크립트 편집 화면
 <img width="1059" alt="스크린샷 2021-01-26 오전 10 54 29" src="https://user-images.githubusercontent.com/995776/105800840-0c134c80-5fdb-11eb-9759-d62dce2e8b8a.png">
